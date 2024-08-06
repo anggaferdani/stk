@@ -68,5 +68,17 @@ class ExperienceController extends Controller
         }
     }
 
-    public function destroy($id) {}
+    public function destroy($id) {
+        try {
+            $user = Experience::find($id);
+
+            $user->update([
+                'status' => 0,
+            ]);
+
+            return redirect()->route('admin.experience.index')->with('success', 'Success');
+        } catch (\Throwable $th) {
+            return back()->with('error', $th->getMessage());
+        }
+    }
 }
