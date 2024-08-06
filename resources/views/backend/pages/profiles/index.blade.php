@@ -34,7 +34,7 @@
           <div class="ms-auto">
             <form action="" class="">
               <div class="d-flex">
-                <input type="text" class="form-control" name="" placeholder="Search">
+                <input disabled type="text" class="form-control" name="" placeholder="Search">
                 <button type="submit" class="btn btn-icon btn-dark-outline"><i class="fa-solid fa-magnifying-glass"></i></button>
                 <a href="{{ route('admin.profile.index') }}" class="btn btn-icon btn-dark-outline"><i class="fa-solid fa-times"></i></a>
               </div>

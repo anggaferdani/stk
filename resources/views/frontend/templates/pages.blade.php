@@ -147,7 +147,7 @@
         <div class="col-md-6">
           <div class="fs-2 fw-medium mt-0 mb-2">Company Experience</div>
           <div class="fs-5 lh-sm mb-3">Lorem ipsum dolor sit amet consectetur. Sed dignissim lorem</div>
-          <div class="row row-cols-md-2 row-cols-1 g-3">
+          <div class="row row-cols-md-2 row-cols-1 g-3" style="height: 400px; overflow-y: auto;">
             @foreach ($experiences as $experience)
               <div class="col">
                 <div class="rounded p-3 lh-sm h-100" style="background: #FFDEC7;">{{ $experience->experience }}</div>

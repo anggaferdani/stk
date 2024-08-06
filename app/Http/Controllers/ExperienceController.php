@@ -17,7 +17,7 @@ class ExperienceController extends Controller
             });
         }
 
-        $experiences = $query->get();
+        $experiences = $query->paginate(10);
 
         return view('backend.pages.experiences.index', compact(
             'experiences',
@@ -26,7 +26,23 @@ class ExperienceController extends Controller
 
     public function create() {}
 
-    public function store(Request $request) {}
+    public function store(Request $request) {
+        try {
+            $request->validate([
+                'experience' => 'required',
+            ]);
+    
+            $array = [
+                'experience' => $request['experience'],
+            ];
+
+            Experience::create($array);
+    
+            return redirect()->route('admin.experience.index')->with('success', 'Success');
+        } catch (\Throwable $th) {
+            return back()->with('error', $th->getMessage());
+        }
+    }
 
     public function show($id) {}
 

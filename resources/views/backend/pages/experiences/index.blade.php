@@ -10,6 +10,7 @@
     </div>
     <div class="col-auto ms-auto d-print-none">
       <div class="btn-list">
+        <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#createModal">Create new report</a>
       </div>
     </div>
   </div>
@@ -51,9 +52,9 @@
               </tr>
             </thead>
             <tbody>
-              @foreach ($experiences->take(8) as $experience)
+              @foreach ($experiences as $experience)
                 <tr>
-                  <td>{{ $loop->iteration }}</td>
+                  <td>{{ ($experiences->currentPage() - 1) * $experiences->perPage() + $loop->iteration }}</td>
                   <td>{{ $experience->experience }}</td>
                   <td>
                     <button type="button" class="btn btn-icon btn-primary" data-bs-toggle="modal" data-bs-target="#edit{{ $experience->id }}"><i class="fa-solid fa-pen"></i></button>
@@ -63,7 +64,43 @@
             </tbody>
           </table>
         </div>
+        <div class="card-footer d-flex align-items-center">
+          <ul class="pagination m-0 ms-auto">
+            @if($experiences->hasPages())
+              {{ $experiences->appends(request()->query())->links('pagination::bootstrap-4') }}
+            @else
+              <li class="page-item">No more records</li>
+            @endif
+          </ul>
+        </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal modal-blur fade" id="createModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <form action="{{ route('admin.experience.store') }}" method="POST" class="">
+        @csrf
+        <div class="modal-header">
+          <h5 class="modal-title">Create</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="">
+            <label class="form-label required">Experience</label>
+            <input type="text" class="form-control" name="experience" placeholder="Experience">
+            @error('experience')<div class="text-danger">{{ $message }}</div>@enderror
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+            Cancel
+          </a>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
